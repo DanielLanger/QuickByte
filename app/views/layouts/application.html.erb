@@ -13,7 +13,7 @@
   	<!-- Set the viewport width to device width for mobile -->
   	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  	<title>QuickByte</title>
 
   	<%= stylesheet_link_tag    "application" %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
@@ -21,10 +21,56 @@
   </head>
 
   <body>
+  <!-- Nav Bar -->
+  <div class="wrapper">
+	  <div class="row">
+		<nav class="top-bar">
+		<ul class="title-area">
+          <li class="name">
+            <h1><a href="#">QuickByte</a></h1>
+          </li>
+        </ul>
+        <section class="top-bar-section">
+		<ul class="right">	
+		  <% if current_user %>
+		    <li class="active"><a href="#">Signed in as <%= current_user.name %></a></li>
+			<li class="active"><%= button_to "Sign out", signout_path, id: "sign_out",class:"button" %></li>
+		  <% else %>
+			<%= button_to "Sign in with Facebook", "/auth/facebook", id: "sign_in",class: "button" %>
+		  <% end %>
+		</section>
+		</nav>
+	  </div>
+	  <!-- End Nav -->
 
-    <%= yield %>
+	  <!-- Main Page Content and Sidebar -->
+	  <div class="row">
+		<!-- Main Blog Content -->
+		<div class="large-9 columns" role="content">
+			<%= yield %> 
+		</div>
+		<!-- End Main Content -->
+	  </div>
+  </div>
+  <!-- Footer -->
+  <div class="footer">
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>&copy; QuickByte LCC</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
 
-    
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
