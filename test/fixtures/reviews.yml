@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  review_id: MyString
+  stars: 1
+  date: MyString
+  text: MyText
+  business_id: MyString
+  user_id: MyString
+
+two:
+  review_id: MyString
+  stars: 1
+  date: MyString
+  text: MyText
+  business_id: MyString
+  user_id: MyString

@@ -1,0 +1,41 @@
+<h1>Listing businesses</h1>
+<a href="#" class="button">Default Button</a>
+<table>
+  <tr>
+    <th>Business</th>
+    <th>Full address</th>
+    <th>Open</th>
+    <th>Photo url</th>
+    <th>City</th>
+    <th>Review count</th>
+    <th>Name</th>
+    <th>Url</th>
+    <th>State</th>
+    <th>Stars</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @businesses.each do |business| %>
+  <tr>
+    <td><%= business.business_id %></td>
+    <td><%= business.full_address %></td>
+    <td><%= business.open %></td>
+    <td><%= business.photo_url %></td>
+    <td><%= business.city %></td>
+    <td><%= business.review_count %></td>
+    <td><%= business.name %></td>
+    <td><%= business.url %></td>
+    <td><%= business.state %></td>
+    <td><%= business.stars %></td>
+    <td><%= link_to 'Show', business %></td>
+    <td><%= link_to 'Edit', edit_business_path(business) %></td>
+    <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Business', new_business_path %>

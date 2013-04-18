@@ -1,4 +1,18 @@
 QuickByte::Application.routes.draw do
+  get "home/index"
+
+  devise_for :users
+
+  match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: redirect('/')
+  match 'signout', to: 'sessions#destroy', as: 'signout'
+
+  resources :reviews
+  resources :businesses
+
+  root :to => "home#index"
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
