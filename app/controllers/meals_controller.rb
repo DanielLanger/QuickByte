@@ -9,7 +9,7 @@ class MealsController < ApplicationController
   # GET /meals
   # GET /meals.json
   def index
-    @meals = Meal.where(:privacy_level => "public")
+    @meals = Meal.where("privacy_level =? AND start_time > ?", "public", DateTime.now).order("start_time")
 
     respond_to do |format|
       format.html # index.html.erb

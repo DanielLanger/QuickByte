@@ -3,7 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 ul.ui-autocomplete {
 	position:absolute;
-	top:100px;
+	list-style: none;
+	margin: 0;
 	padding: 0;
 	border: solid 1px #999;
 	cursor: default;
