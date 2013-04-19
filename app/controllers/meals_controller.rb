@@ -47,8 +47,10 @@ class MealsController < ApplicationController
   # POST /meals
   # POST /meals.json
   def create
+    bId=Business.find_by_name(params[:meal][:location]).id
     @meal = Meal.new(params[:meal])
-	@meal.host=current_user
+    @meal.location=bId
+    @meal.host=current_user.id
     respond_to do |format|
       if @meal.save
         format.html { redirect_to @meal, notice: 'Meal was successfully created.' }
@@ -58,6 +60,7 @@ class MealsController < ApplicationController
         format.json { render json: @meal.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   # PUT /meals/1

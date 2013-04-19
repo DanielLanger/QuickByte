@@ -1,4 +1,4 @@
-<%= simple_form_for @meal do |f| %>
+<%= simple_form_for @meal, :html => { :class =>"custom"} do |f| %>
   <% if @meal.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@meal.errors.count, "error") %> prohibited this meal from being saved:</h2>
@@ -11,19 +11,22 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :start_time %><br />
-    <%= f.datetime_select :start_time %>
+  <div class="field" style="width:40%"> 
+    <b>Location</b>
+	<%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")} %>
   </div>
-  <div class="field">
-    <%= f.label :end_time %><br />
-    <%= f.datetime_select :end_time %>
+  <div class="field" style="width:12%;float:right;margin-right:60%">
+    <b>End Time</b><br />
+    <%= f.datetime_select :end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
   </div>
-  <div class="field">
-    <%= f.label :location %><br />
-    <% bus= Business.where(:city =>"Philadelphia").order(:name) %>
-    <%= f.collection_select(:location, bus, :id, :name, {:prompt => "Select a Restaurant"}) %>
+  <div style="float:right;margin-right:8%">
+  	<b>to</b>
   </div>
+  <div class="field"  style="width:12%">
+    <b>Start Time</b><br />
+    <%= f.datetime_select :start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
