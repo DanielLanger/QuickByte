@@ -1,9 +1,7 @@
 <div class="panel">
 	<div class="style:float-left">
 		<%= button_to "New Meal", new_meal_path,:method => :get,class:"button" %>
-	<h1 style="text-align:center">MealFeed</h1>
-	
-	
+	<h1 style="text-align:center">MealFeed</h1>	
 	<div>
 		<% @meals.each do |m| %>
 		<div class="row">

@@ -1,55 +1,53 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Business:</b>
-  <%= @business.business_id %>
-</p>
-
-<p>
-  <b>Full address:</b>
-  <%= @business.full_address %>
-</p>
-
-<p>
-  <b>Open:</b>
-  <%= @business.open %>
-</p>
-
-<p>
-  <b>Photo url:</b>
-  <%= @business.photo_url %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @business.city %>
-</p>
-
-<p>
-  <b>Review count:</b>
-  <%= @business.review_count %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @business.name %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= @business.url %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @business.state %>
-</p>
-
-<p>
-  <b>Stars:</b>
-  <%= @business.stars %>
-</p>
-
-
-<%= link_to 'Edit', edit_business_path(@business) %> |
-<%= link_to 'Back', meals_path %>
+<div class="row" >
+	<div class="large-6 columns">
+		<div class="panel">
+			<p id="notice"><%= notice %></p>
+				  
+			<p>
+			<img src="<%= @business.photo_url %>">
+			<h3><%= @business.name %></h3>
+			</p>
+			<p>
+			<%= @business.full_address %>
+			</p>	
+			<p>
+			  <b>Url:</b>
+			  <a href="<%= @business.url %>" target="_blank"> <%= @business.url %> <a/>
+			</p>
+			
+			<p>
+			  <b>Stars:</b>
+			  <%= @business.stars %>
+			</p>	
+		</div>
+		<%= button_to 'Back', meals_path, :method => "get", :class =>"button"  %>
+	</div>
+	<div class="large-6 columns">
+		<h3><u> Reviews </u>:<%= @business.review_count %></h3>
+			<% Review.find_all_by_business_id(@business.business_id).each do |e|%> 
+				<div class="panel">
+					<p><b><%= e.user_id %>:</b></p>
+					<br />
+					<p><%= e.text %></p>
+					<br />
+					<p>Stars:
+					<% if e.stars == 1  %> 
+					  <%= image_tag "1star.jpg" %>
+					<% end %>
+					<% if e.stars == 2  %> 
+					  <%= image_tag "2star.jpg" %>
+					<% end %>
+					<% if e.stars == 3  %> 
+					  <%= image_tag "3star.jpg" %>
+					<% end %>
+					<% if e.stars == 4  %> 
+					  <%= image_tag "4star.jpg" %>
+					<% end %>
+					<% if e.stars == 5  %> 
+					  <%= image_tag "5star.jpg" %>  
+					<% end %>
+					 </p>
+				</div>
+			<% end %>
+	</div>
+</div>	
