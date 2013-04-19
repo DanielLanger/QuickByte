@@ -13,9 +13,6 @@
  */
  *= require foundation_and_overrides
 
-* {
-	margin: 0;
-}
 html, body {
 	height: 100%;
 }
