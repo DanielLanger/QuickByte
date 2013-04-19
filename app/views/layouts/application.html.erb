@@ -43,7 +43,7 @@
 			  <div class="row collapse">
 				<div class="small-8 columns">
 				 <label style="display:none" for="search">search: </label>
-				  <%= text_field_tag 'search', '', :data => {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")}, :id => 'search' %>
+				  <%= text_field_tag 'search', '', :data => {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses")}, :id => 'search' %>
 				</div>
 				<div class="small-4 columns">
 				  <%= submit_tag 'Search', :class =>"button" %>
