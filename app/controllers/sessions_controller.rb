@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
     puts("here!!!")
-    redirect_to reviews_path
+    redirect_to meals_path
   end
 
   def destroy

@@ -10,7 +10,7 @@ gem 'sqlite3'
 gem 'devise'
 gem 'omniauth-facebook', '1.4.0'
 gem 'nifty-generators'
-
+gem 'simple_form'
 group :production, :staging do
   gem "pg"
 end

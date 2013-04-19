@@ -1,7 +1,8 @@
 class BusinessesController < ApplicationController
 
   
-   before_filter :authenticate
+
+  before_filter :authenticate
  
   def authenticate
     redirect_to "/" unless current_user!=nil

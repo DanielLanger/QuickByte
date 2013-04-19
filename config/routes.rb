@@ -1,4 +1,7 @@
 QuickByte::Application.routes.draw do
+  resources :meals
+
+
   get "home/index"
 
   devise_for :users

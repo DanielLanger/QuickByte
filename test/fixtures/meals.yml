@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  host: 1
+  start_time: 2013-04-18 19:28:32
+  end_time: 2013-04-18 19:28:32
+  location: 1
+
+two:
+  host: 1
+  start_time: 2013-04-18 19:28:32
+  end_time: 2013-04-18 19:28:32
+  location: 1
