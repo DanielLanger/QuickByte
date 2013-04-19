@@ -6,12 +6,12 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 require 'json'
-gem 'sqlite3'
 gem 'devise'
 gem 'omniauth-facebook', '1.4.0'
 gem 'nifty-generators'
 gem 'simple_form'
-group :production, :staging do
+
+group :production do
   gem "pg"
 end
 
