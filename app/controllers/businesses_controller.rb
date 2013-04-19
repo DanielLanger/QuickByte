@@ -18,6 +18,11 @@ class BusinessesController < ApplicationController
     end
   end
 
+  def autoComp
+  	@business=Business.find_by_name(params[:search])
+    redirect_to @business
+  end
+
   # GET /businesses/1
   # GET /businesses/1.json
   def show

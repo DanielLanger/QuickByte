@@ -12,23 +12,26 @@
     </div>
   <% end %>
 
-  <div class="field" style="width:40%"> 
+  <div class="field" style="width:50%"> 
     <b>Location</b>
 	<%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")} %>
   </div>
-  <div class="field" style="width:12%;float:right;margin-right:60%">
+  <div class="field" style="width:25%;float:right;margin-right:30%">
     <b>End Time</b><br />
     <%= f.datetime_select :end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
   </div>
   <div style="float:right;margin-right:8%">
   	<b>to</b>
   </div>
-  <div class="field"  style="width:12%">
+  <div class="field"  style="width:25%">
     <b>Start Time</b><br />
     <%= f.datetime_select :start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
   </div>
-
+  <div class="field" style="width:30%">
+    <b>Privacy Level <b><br />
+    <%= f.select :privacy_level, options_for_select([["Public", "public"], ["Private", "Private"]]) %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create Meal', :class =>"button" %>
   </div>
 <% end %>

@@ -9,7 +9,7 @@ class MealsController < ApplicationController
   # GET /meals
   # GET /meals.json
   def index
-    @meals = Meal.all
+    @meals = Meal.where(:privacy_level => "public")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -53,7 +53,7 @@ class MealsController < ApplicationController
     @meal.host=current_user.id
     respond_to do |format|
       if @meal.save
-        format.html { redirect_to @meal, notice: 'Meal was successfully created.' }
+        format.html { redirect_to meals_url, notice: 'Meal was successfully created.' }
         format.json { render json: @meal, status: :created, location: @meal }
       else
         format.html { render action: "new" }
@@ -70,7 +70,7 @@ class MealsController < ApplicationController
 
     respond_to do |format|
       if @meal.update_attributes(params[:meal])
-        format.html { redirect_to @meal, notice: 'Meal was successfully updated.' }
+        format.html { redirect_to meals_url, notice: 'Meal was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

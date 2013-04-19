@@ -35,6 +35,24 @@
 		    <li class="active"><a href="#"><%= current_user.name %></a></li>
 			<li class="active"><%= button_to "Sign out", signout_path, id: "sign_out",class:"button" %></li>
 		  <% end %>
+		</ul>
+		<% if current_user %>
+		<ul>
+			<li class="has-form" style="margin-left:30%">
+			<%= form_tag(:controller => "businesses", :action => "autoComp", :method => "post") do %>
+			  <div class="row collapse">
+				<div class="small-8 columns">
+				 <label style="display:none" for="search">search: </label>
+				  <%= text_field_tag 'search', '', :data => {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")}, :id => 'search' %>
+				</div>
+				<div class="small-4 columns">
+				  <%= submit_tag 'Search', :class =>"button" %>
+				</div>
+			  </div>
+			<% end %>
+			</li>
+		</ul>
+		<% end %>
 		</section>
 		</nav>
 	  </div>
@@ -43,10 +61,8 @@
 	<!-- Main Page Content -->
 	  <div class="row">
 		<!-- Main Blog Content -->
-		<div class="large-12 columns" role="content">
-			
-			  <%= yield %> 
-			
+		<div class="large-12 columns" role="content">		
+			  <%= yield %> 	
 		</div>
 		<!-- End Main Content -->
 	  </div>
