@@ -5,33 +5,39 @@
 	<div>
 		<% @meals.each do |m| %>
 		<div class="row">
-		<div class="large-9 columns">
-			<table style="width:600px;text-align:center">
-			  <tr>
-			    <td><img src="<%= Business.find_by_id(m.location).photo_url %>"></td>
-				<th>Start Time</th>
-				<th>End Time</th>
-				<th>Host</th>
-			  </tr>
-			  <tr>
-				<td width="30%" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>m.location) %>' "><h5><u><%= Business.find_by_id(m.location).name %><u></h5></td>
-				<td width="20%"><%= m.start_time.strftime("%m/%d at %I:%M%p")%></td>
-				<td width="20%"><%= m.end_time.strftime("%I:%M%p")%></td>
-				<td width="20%"><%= User.find(m.host).name %></td>
-			  </tr>
-			</table>
-		</div>
-		<div class="large-3 columns">
-		    <% if GroupMeal.find_by_meal(m.id) != nil  %>
-				<% if m.host !=current_user.id && current_user.participant != GroupMeal.find_by_meal(m.id).id %>
-					<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
+			<div class="large-9 columns">
+				<table style="width:600px;text-align:center">
+				  <tr>
+					<td><img src="<%= Business.find_by_id(m.location).photo_url %>"></td>
+					<th>Start Time</th>
+					<th>End Time</th>
+					<th>Host</th>
+				  </tr>
+				  <tr>
+					<td width="30%" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>m.location) %>' "><h5><u><%= Business.find_by_id(m.location).name %><u></h5></td>
+					<td width="20%"><%= m.start_time.strftime("%m/%d at %I:%M%p")%></td>
+					<td width="20%"><%= m.end_time.strftime("%I:%M%p")%></td>
+					<td width="20%"><%= User.find(m.host).name %></td>
+				  </tr>
+				</table>
+			</div>
+			<div class="large-3 columns">
+				<% if GroupMeal.find_by_meal(m.id) != nil  %>
+					<% if m.host !=current_user.id && current_user.participant != GroupMeal.find_by_meal(m.id).id %>
+						<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
+					<% else %>
+							<%= link_to 'See Group Meal', group_meal_path(GroupMeal.find_by_meal(m.id)), :class =>"button" %>
+					<% end %>
+					
+					<% if GroupMeal.find_by_meal(m.id).set_start_time != nil %>
+						<span class="round alert label">Final Time Set!</span>
+					<% end %>
 				<% else %>
-						<%= link_to 'See Group Meal', group_meal_path(GroupMeal.find_by_meal(m.id)), :class =>"button" %>
+					<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
 				<% end %>
-			<% else %>
-				<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
-			<% end %>
-		</div>
+				
+				
+			</div>
 		</div>
 		<% end %>
 	</div>

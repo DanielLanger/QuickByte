@@ -21,6 +21,10 @@ class GroupMealsController < ApplicationController
     end
   end
 
+  def getUserGroups
+  
+  end
+
   def joinGroup
     if GroupMeal.where("meal = ?", params[:meal]) == []
       @meal=Meal.find(params[:meal])
@@ -81,7 +85,34 @@ class GroupMealsController < ApplicationController
 
     respond_to do |format|
       if @group_meal.update_attributes(params[:group_meal])
-        Meal.find(@group_meal.meal)
+         @meal= Meal.find(@group_meal.meal)
+
+        if params[:group_meal]["proposed_start_time(2i)"] !=nil
+        	@meal.start_time= DateTime.new(params[:group_meal]["proposed_start_time(1i)"].to_i, 
+                        params[:group_meal]["proposed_start_time(2i)"].to_i,
+                        params[:group_meal]["proposed_start_time(3i)"].to_i,
+                        params[:group_meal]["proposed_start_time(4i)"].to_i,
+                        params[:group_meal]["proposed_start_time(5i)"].to_i)
+            @meal.end_time= DateTime.new(params[:group_meal]["proposed_end_time(1i)"].to_i, 
+                        params[:group_meal]["proposed_end_time(2i)"].to_i,
+                        params[:group_meal]["proposed_end_time(3i)"].to_i,
+                        params[:group_meal]["proposed_end_time(4i)"].to_i,
+                        params[:group_meal]["proposed_end_time(5i)"].to_i)
+        	@meal.save
+        end
+        if params[:group_meal]["set_start_time(2i)"] !=nil
+        	@meal.start_time= DateTime.new(params[:group_meal]["set_start_time(1i)"].to_i, 
+                        params[:group_meal]["set_start_time(2i)"].to_i,
+                        params[:group_meal]["set_start_time(3i)"].to_i,
+                        params[:group_meal]["set_start_time(4i)"].to_i,
+                        params[:group_meal]["set_start_time(5i)"].to_i)
+            @meal.end_time= DateTime.new(params[:group_meal]["set_end_time(1i)"].to_i, 
+                        params[:group_meal]["set_end_time(2i)"].to_i,
+                        params[:group_meal]["set_end_time(3i)"].to_i,
+                        params[:group_meal]["set_end_time(4i)"].to_i,
+                        params[:group_meal]["set_end_time(5i)"].to_i)
+        	@meal.save
+        end
         format.html { redirect_to @group_meal, notice: 'Group meal was successfully updated.' }
         format.json { head :no_content }
       else

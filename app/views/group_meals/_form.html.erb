@@ -3,10 +3,10 @@
 
   <div class="form-inputs">
     <%= f.input :meal %>
-    <%= f.input :proposed_start_time %>
-    <%= f.input :proposed_end_time %>
-    <%= f.input :set_start_time %>
-    <%= f.input :set_end_time %>
+    <%= f.datetime_select :proposed_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    <%= f.datetime_select :proposed_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    <%= f.datetime_select :set_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    <%= f.datetime_select :set_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
   </div>
 
   <div class="form-actions">

@@ -8,7 +8,8 @@ QuickByte::Application.routes.draw do
   get "home/index"
 
   devise_for :users
-
+  
+  match '/group_meals/getUserGroups', :controller => 'group_meals', :action => 'getUserGroups'
   match '/group_meals/proposeNewTimes', :controller => 'group_meals', :action => 'proposeNewTimes'
   match '/group_meals/setTimes', :controller => 'group_meals', :action => 'setTimes'
   match '/group_meals/joinGroup', :controller => 'group_meals', :action => 'joinGroup'

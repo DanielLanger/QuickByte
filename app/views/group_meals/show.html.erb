@@ -58,20 +58,20 @@
 				<% end %>
 			</div>
 			<div class="row">
-				<%= simple_form_for(@group_meal,:html => {:id => "updateProp" }) do |f| %>
+				<%= simple_form_for(@group_meal,:html => {:id => "updateProp", :class =>"custom" }) do |f| %>
 					<div class="form-inputs">
-						<%= f.input :proposed_start_time %>
-						<%= f.input :proposed_end_time %>
+						Proposed Start Time:<%= f.datetime_select :proposed_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    					Proposed End Time:<%= f.datetime_select :proposed_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
 					  </div>
 					  
 					  <div class="form-actions">
 						<%= f.button :submit , :class => "button" %>
 					  </div>
 				<% end %>
-				<%= simple_form_for(@group_meal,:html => {:id => "updateSet" }) do |f| %>
+				<%= simple_form_for(@group_meal,:html => {:id => "updateSet" , :class =>"custom"}) do |f| %>
 					<div class="form-inputs">
-						<%= f.input :set_start_time %>
-						<%= f.input :set_end_time %>
+						Set Start Time:<%= f.datetime_select :set_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    					Set End Time:<%= f.datetime_select :set_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
 					  </div>
 					  
 					  <div class="form-actions">
