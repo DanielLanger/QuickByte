@@ -1,4 +1,7 @@
 QuickByte::Application.routes.draw do
+  resources :group_meals
+
+
   resources :meals
 
 
@@ -6,6 +9,9 @@ QuickByte::Application.routes.draw do
 
   devise_for :users
 
+  match '/group_meals/proposeNewTimes', :controller => 'group_meals', :action => 'proposeNewTimes'
+  match '/group_meals/setTimes', :controller => 'group_meals', :action => 'setTimes'
+  match '/group_meals/joinGroup', :controller => 'group_meals', :action => 'joinGroup'
   match '/meals/eatHere', :controller => 'meals', :action => 'eatHere'
   match '/businesses/autoComp', :controller => 'businesses', :action => 'autoComp'
 

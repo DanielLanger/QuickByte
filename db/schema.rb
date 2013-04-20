@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419163130) do
+ActiveRecord::Schema.define(:version => 20130420180023) do
 
   create_table "businesses", :force => true do |t|
     t.string   "business_id"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(:version => 20130419163130) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "group_meals", :force => true do |t|
+    t.integer  "meal"
+    t.datetime "proposed_start_time"
+    t.datetime "proposed_end_time"
+    t.datetime "set_start_time"
+    t.datetime "set_end_time"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "meals", :force => true do |t|
@@ -95,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20130419163130) do
     t.datetime "oauth_expires_at"
     t.string   "uid"
     t.string   "provider"
+    t.integer  "participant"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

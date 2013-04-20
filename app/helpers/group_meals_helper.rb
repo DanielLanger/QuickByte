@@ -1,0 +1,2 @@
+module GroupMealsHelper
+end

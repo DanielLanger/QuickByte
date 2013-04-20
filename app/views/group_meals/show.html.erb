@@ -1,0 +1,85 @@
+
+<p id="notice"><%= notice %></p>
+<div style="font-size:40px;font-style:italic;display:inline"><%= Business.find(Meal.find(@group_meal.meal).location).name %></div>
+<div class="panel" >
+	<div class="row">
+		<div class="large-2 columns">
+			<img src= "<%= Business.find(Meal.find(@group_meal.meal)).photo_url %>" >
+			<h5>Host: <em style="display:block"><%= User.find(Meal.find(@group_meal.meal).host).name %></em></h5>
+			<h5>Participants:</h5>
+				<% User.where("participant = ?", @group_meal.id).each do |u| %>
+				  <h6 style="display:inline"><%= u.name %></h6>	
+				<% end %>
+		</div>
+		<div class="large-10 columns">
+			<table>
+			  <tr>
+				<th>Proposed start time</th>
+				<th>Proposed end time</th>
+				<th>Set start time</th>
+				<th>Set end time</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			  </tr>
+			  <tr>
+			  	<td> <%= @group_meal.proposed_start_time.strftime("%m/%d at %I:%M%p") %></td>
+			  	<td><%= @group_meal.proposed_end_time.strftime("%m/%d at %I:%M%p") %></td>
+			  	
+			  	<% if @group_meal.set_start_time. !=nil %>
+			  		<td><%= @group_meal.set_start_time.strftime("%m/%d at %I:%M%p") %></td>
+			  		<td><%= @group_meal.set_end_time.strftime("%m/%d at %I:%M%p") %></td>
+			  	<% else %>
+			  		<td>TBD!</td>
+			  		<td>TBD!</td>
+			  	<% end %>
+			  </tr>
+			</table>
+			<div class="row" >
+				<% if @group_meal.set_start_time. ==nil %>
+					<div class="large-5 large-offset-1 columns">
+						<button class="button" id="buttonProp">Propose New Times </button>
+					</div>
+					<div class="large-6 columns">
+						<% if current_user == User.find(Meal.find(@group_meal.meal).host) %>
+							<button class="button" id="buttonSet" >Set Times </button>					
+						<% end %>
+					</div>
+				<% else %>
+					<div class="large-5 large-offset-1 columns">
+						<button  type="button" class="button" id="buttonProp" disabled>Propose New Times </button>
+					</div>
+					<div class="large-6 columns">
+						<% if current_user == User.find(Meal.find(@group_meal.meal).host) %>
+							<button type="button" class="button" id="buttonSet" disabled>Set Times </button>					
+						<% end %>
+					</div>
+				
+				<% end %>
+			</div>
+			<div class="row">
+				<%= simple_form_for(@group_meal,:html => {:id => "updateProp" }) do |f| %>
+					<div class="form-inputs">
+						<%= f.input :proposed_start_time %>
+						<%= f.input :proposed_end_time %>
+					  </div>
+					  
+					  <div class="form-actions">
+						<%= f.button :submit , :class => "button" %>
+					  </div>
+				<% end %>
+				<%= simple_form_for(@group_meal,:html => {:id => "updateSet" }) do |f| %>
+					<div class="form-inputs">
+						<%= f.input :set_start_time %>
+						<%= f.input :set_end_time %>
+					  </div>
+					  
+					  <div class="form-actions">
+						<%= f.button :submit , :class => "button" %>
+					  </div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<%= button_to 'Back', meals_path, :method => 'get', :class =>"button" %>

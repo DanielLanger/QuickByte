@@ -17,9 +17,23 @@
 			</p>
 			
 			<p>
-			  <b>Stars:</b>
-			  <%= @business.stars %>
-			</p>	
+			  <p>Stars:
+					<% if @business.stars == 1  %> 
+					  <%= image_tag "1star.jpg" %>
+					<% end %>
+					<% if @business.stars == 2  %> 
+					  <%= image_tag "2star.jpg" %>
+					<% end %>
+					<% if @business.stars == 3  %> 
+					  <%= image_tag "3star.jpg" %>
+					<% end %>
+					<% if @business.stars == 4  %> 
+					  <%= image_tag "4star.jpg" %>
+					<% end %>
+					<% if @business.stars == 5  %> 
+					  <%= image_tag "5star.jpg" %>  
+					<% end %>
+					 </p>	
 		</div>
 		<%= button_to 'Back', meals_path, :method => "get", :class =>"button"  %>
 	</div>

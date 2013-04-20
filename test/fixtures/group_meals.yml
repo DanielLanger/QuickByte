@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  meal: 1
+  proposed_start_time: 2013-04-20 13:57:53
+  proposed_end_time: 2013-04-20 13:57:53
+  set_start_time: 2013-04-20 13:57:53
+  set_end_time: 2013-04-20 13:57:53
+
+two:
+  meal: 1
+  proposed_start_time: 2013-04-20 13:57:53
+  proposed_end_time: 2013-04-20 13:57:53
+  set_start_time: 2013-04-20 13:57:53
+  set_end_time: 2013-04-20 13:57:53

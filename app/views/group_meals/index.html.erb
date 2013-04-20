@@ -1,0 +1,31 @@
+<h1>Listing group_meals</h1>
+
+<table>
+  <tr>
+    <th>Meal</th>
+    <th>Proposed start time</th>
+    <th>Proposed end time</th>
+    <th>Set start time</th>
+    <th>Set end time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @group_meals.each do |group_meal| %>
+  <tr>
+    <td><%= group_meal.meal %></td>
+    <td><%= group_meal.proposed_start_time %></td>
+    <td><%= group_meal.proposed_end_time %></td>
+    <td><%= group_meal.set_start_time %></td>
+    <td><%= group_meal.set_end_time %></td>
+    <td><%= link_to 'Show', group_meal %></td>
+    <td><%= link_to 'Edit', edit_group_meal_path(group_meal) %></td>
+    <td><%= link_to 'Destroy', group_meal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Group meal', new_group_meal_path %>

@@ -15,3 +15,18 @@
 //= require jquery_ujs
 //= require foundation
 //= require_tree .
+
+
+$(document).ready(function() {
+
+ $('#updateProp').hide(); //Initially form wil be hidden.
+
+  $('#buttonProp').click(function() {
+   $('#updateProp').show();//Form shows on button click
+   });
+   $('#updateSet').hide();
+
+  $('#buttonSet').click(function() {
+   $('#updateSet').show();
+   });
+});

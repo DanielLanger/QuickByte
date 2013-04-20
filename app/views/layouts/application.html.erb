@@ -32,7 +32,7 @@
         <section class="top-bar-section">
 		<ul class="right">	
 		  <% if current_user %>
-		    <li class="active"><a href="/meals"><%= current_user.name %></a></li>
+		    <li class="active"><a href="/meals">MealFeed</a></li>
 			<li class="active"><%= button_to "Sign out", signout_path, id: "sign_out",class:"button" %></li>
 		  <% end %>
 		</ul>

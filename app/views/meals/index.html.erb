@@ -22,7 +22,15 @@
 			</table>
 		</div>
 		<div class="large-3 columns">
-			<button style="margin-top:0px;"> Join! </button>
+		    <% if GroupMeal.find_by_meal(m.id) != nil  %>
+				<% if m.host !=current_user.id && current_user.participant != GroupMeal.find_by_meal(m.id).id %>
+					<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
+				<% else %>
+						<%= link_to 'See Group Meal', group_meal_path(GroupMeal.find_by_meal(m.id)), :class =>"button" %>
+				<% end %>
+			<% else %>
+				<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
+			<% end %>
 		</div>
 		</div>
 		<% end %>
