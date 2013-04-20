@@ -6,6 +6,7 @@ QuickByte::Application.routes.draw do
 
   devise_for :users
 
+  match '/meals/eatHere', :controller => 'meals', :action => 'eatHere'
   match '/businesses/autoComp', :controller => 'businesses', :action => 'autoComp'
 
   match 'auth/:provider/callback', to: 'sessions#create'

@@ -10,10 +10,13 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field" style="width:50%"> 
     <b>Location</b>
-	<%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")} %>
+      <% if @meal.location == nil%>
+        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")} %>
+      <% else %>
+        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")}, :readonly => "true" %>
+  	  <% end %>
   </div>
   <div class="field" style="width:25%;float:right;margin-right:30%">
     <b>End Time</b><br />

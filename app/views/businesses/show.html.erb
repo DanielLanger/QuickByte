@@ -2,9 +2,10 @@
 	<div class="large-6 columns">
 		<div class="panel">
 			<p id="notice"><%= notice %></p>
-				  
+			<div style="float:right">
+			  <img src="<%= @business.photo_url %>"><%= button_to 'Eat Here', {:controller => "meals", :action => "eatHere", :business => @business.id},  :method => "post" , :class =>"button" %>
+			</div> 
 			<p>
-			<img src="<%= @business.photo_url %>">
 			<h3><%= @business.name %></h3>
 			</p>
 			<p>

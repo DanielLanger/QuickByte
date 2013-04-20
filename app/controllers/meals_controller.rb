@@ -16,12 +16,17 @@ class MealsController < ApplicationController
       format.json { render json: @meals }
     end
   end
-
+  
+  def eatHere
+  	@meal= Meal.new
+	@meal.location=(params[:business])
+  	render 'new'
+  end
+  
   # GET /meals/1
   # GET /meals/1.json
   def show
     @meal = Meal.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @meal }
@@ -32,7 +37,6 @@ class MealsController < ApplicationController
   # GET /meals/new.json
   def new
     @meal = Meal.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @meal }
@@ -43,11 +47,18 @@ class MealsController < ApplicationController
   def edit
     @meal = Meal.find(params[:id])
   end
-
+  
   # POST /meals
   # POST /meals.json
   def create
-    bId=Business.find_by_name(params[:meal][:location]).id
+
+   puts("paramTest")
+   puts((params[:meal][:location]).class)
+    if((params[:meal][:location]).to_s.numeric?)
+      bId=params[:meal][:location]
+    else
+      bId=Business.find_by_name(params[:meal][:location]).id
+    end
     @meal = Meal.new(params[:meal])
     @meal.location=bId
     @meal.host=current_user.id
