@@ -22,10 +22,16 @@ class GroupMealsController < ApplicationController
   end
 
   def getUserGroups
-  
+  	@group_meals=GroupMealParticipant.find_all_by_user_id(current_user.id)
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @group_meal }
+    end
   end
 
   def joinGroup
+  puts("here now!")
+  puts(params)
     if GroupMeal.where("meal = ?", params[:meal]) == []
       @meal=Meal.find(params[:meal])
       @group_meal = GroupMeal.new
@@ -38,8 +44,12 @@ class GroupMealsController < ApplicationController
       redirect_to(@group_meal)
     else
      if(Meal.find(params[:meal]).host!=current_user.id)
-       current_user.participant= GroupMeal.find_by_meal(params[:meal]).id
-       current_user.save
+       puts("in if statement")
+       puts(current_user.name)
+       @groupMealParticipant= GroupMealParticipant.new
+       @groupMealParticipant.user_id=current_user.id
+       @groupMealParticipant.group_meal_id= GroupMeal.find_by_meal(params[:meal]).id
+       @groupMealParticipant.save
      end
      
      redirect_to(GroupMeal.find_by_meal(params[:meal]))

@@ -1,17 +1,16 @@
-
 <p id="notice"><%= notice %></p>
 <div style="font-size:40px;font-style:italic;display:inline"><%= Business.find(Meal.find(@group_meal.meal).location).name %></div>
 <div class="panel" >
 	<div class="row">
-		<div class="large-2 columns">
-			<img src= "<%= Business.find(Meal.find(@group_meal.meal)).photo_url %>" >
+		<div class="large-3 columns">
+			<img src= "<%= Business.find_by_id(Meal.find(@group_meal.meal).location).photo_url %>" >
 			<h5>Host: <em style="display:block"><%= User.find(Meal.find(@group_meal.meal).host).name %></em></h5>
 			<h5>Participants:</h5>
-				<% User.where("participant = ?", @group_meal.id).each do |u| %>
-				  <h6 style="display:inline"><%= u.name %></h6>	
+				<% GroupMealParticipant.find_all_by_group_meal_id(@group_meal.id).each do |g| %>
+				  <em style="display:inline"><%= User.find(g.user_id).name %></em>	
 				<% end %>
 		</div>
-		<div class="large-10 columns">
+		<div class="large-9 columns">
 			<table>
 			  <tr>
 				<th>Proposed start time</th>

@@ -23,7 +23,7 @@
 			</div>
 			<div class="large-3 columns">
 				<% if GroupMeal.find_by_meal(m.id) != nil  %>
-					<% if m.host !=current_user.id && current_user.participant != GroupMeal.find_by_meal(m.id).id %>
+					<% if m.host !=current_user.id && GroupMealParticipant.find_by_user_id_and_group_meal_id(current_user.id,GroupMeal.find_by_meal(m.id).id)==nil%>
 						<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
 					<% else %>
 							<%= link_to 'See Group Meal', group_meal_path(GroupMeal.find_by_meal(m.id)), :class =>"button" %>
