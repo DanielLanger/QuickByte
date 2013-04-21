@@ -64,7 +64,18 @@ class MealsController < ApplicationController
     @meal.host=current_user.id
     respond_to do |format|
       if @meal.save
-        format.html { redirect_to meals_url, notice: 'Meal was successfully created.' }
+		  @group_meal = GroupMeal.new
+		  @group_meal.meal=@meal.id
+		  @group_meal.proposed_start_time= @meal.start_time
+		  @group_meal.proposed_end_time= @meal.end_time
+		  @group_meal.set_start_time= nil
+		  @group_meal.set_start_time= nil
+		  @group_meal.save
+		  @groupMealParticipant= GroupMealsParticipant.new
+          @groupMealParticipant.user_id=current_user.id
+          @groupMealParticipant.group_meal_id= @group_meal.id
+          @groupMealParticipant.save    
+        format.html { redirect_to :controller => 'group_meals', :action => 'show', :id => @group_meal.id, notice: 'Meal was successfully created.' }
         format.json { render json: @meal, status: :created, location: @meal }
       else
         format.html { render action: "new" }

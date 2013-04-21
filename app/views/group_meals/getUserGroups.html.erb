@@ -1,5 +1,5 @@
 <%= button_to 'Back', meals_path, :method => 'get', :class =>"button" %>
-<% if @group_meals == nil %>
+<% if @group_meals == [] %>
   <h1> You Are Not A Part Of Any Group Meals Yet! </h1>
 <% end %>
 <% @group_meals.each do |group_meal| %>

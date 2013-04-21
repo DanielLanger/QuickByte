@@ -20,14 +20,14 @@
   </div>
   <div class="field" style="width:25%;float:right;margin-right:30%">
     <b>End Time</b><br />
-    <%= f.datetime_select :end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    <%= f.datetime_select :end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year], :minute_step => 15 %>
   </div>
   <div style="float:right;margin-right:8%">
   	<b>to</b>
   </div>
   <div class="field"  style="width:25%">
     <b>Start Time</b><br />
-    <%= f.datetime_select :start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+    <%= f.datetime_select :start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year], :minute_step => 15  %>
   </div>
   <div class="field" style="width:30%">
     <b>Privacy Level <b><br />

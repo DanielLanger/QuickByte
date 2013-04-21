@@ -42,18 +42,6 @@ class GroupMealsController < ApplicationController
   end
 
   def joinGroup
-  puts("here now!")
-  puts(params)
-    if GroupMeal.where("meal = ?", params[:meal]) == []
-      @meal=Meal.find(params[:meal])
-      @group_meal = GroupMeal.new
-      @group_meal.meal=params[:meal]
-      @group_meal.proposed_start_time= @meal.start_time
-      @group_meal.proposed_end_time= @meal.end_time
-      @group_meal.set_start_time= nil
-      @group_meal.set_start_time= nil
-      @group_meal.save
-    end
       @groupMealParticipant= GroupMealsParticipant.new
       @groupMealParticipant.user_id=current_user.id
       @groupMealParticipant.group_meal_id= GroupMeal.find_by_meal(params[:meal]).id

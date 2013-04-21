@@ -64,24 +64,33 @@
 			<div class="row">
 				<%= simple_form_for(@group_meal,:html => {:id => "updateProp", :class =>"custom" }) do |f| %>
 					<div class="form-inputs">
-						Proposed Start Time:<%= f.datetime_select :proposed_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
-    					Proposed End Time:<%= f.datetime_select :proposed_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
-					  </div>
-					  
+					  <div class="large-6 columns">
+						Proposed Start Time:<%= f.datetime_select :proposed_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year], :minute_step => 15  %>
+    				  </div>
+    				  <div class="large-6 columns">	
+    					Proposed End Time:<%= f.datetime_select :proposed_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year], :minute_step => 15  %>
+				      </div>
+				    </div> 	
 					  <div class="form-actions">
 						<%= f.button :submit , :class => "button" %>
 					  </div>
 				<% end %>
+			</div>
+			<div class="row">
 				<%= simple_form_for(@group_meal,:html => {:id => "updateSet" , :class =>"custom"}) do |f| %>
 					<div class="form-inputs">
-						Set Start Time:<%= f.datetime_select :set_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
-    					Set End Time:<%= f.datetime_select :set_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year] %>
+					<div class="large-6 columns">
+						Set Start Time:<%= f.datetime_select :set_start_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year], :minute_step => 15  %>
+    				</div>
+    				<div class="large-6 columns">	
+    					Set End Time:<%= f.datetime_select :set_end_time, :ampm => true, :start_year => 2013, :order => [:month, :day, :year], :minute_step => 15  %>
 					  </div>
-					  
+					  </div>
 					  <div class="form-actions">
 						<%= f.button :submit , :class => "button" %>
 					  </div>
 				<% end %>
+			  </div>
 			</div>
 		</div>
 	</div>
