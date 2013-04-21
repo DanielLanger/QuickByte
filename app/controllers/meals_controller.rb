@@ -9,8 +9,15 @@ class MealsController < ApplicationController
   # GET /meals
   # GET /meals.json
   def index
-    @meals = Meal.where("privacy_level =? AND start_time > ?", "public", DateTime.now).order("start_time")
 
+    @meals = Meal.where("privacy_level =? AND start_time > ?", "public", DateTime.now).order("start_time")
+    @privateMeals= Private.where("user_id = ?" ,current_user.id)
+    @privateMeals.each do |p|
+    	@hostedM= Meal.where("id= ?", p.meal_id)
+    	@meals += @hostedM
+    end
+    @meals += Meal.where("host =?", current_user.id)
+    @meals.sort! { |a,b| a.start_time <=> b.start_time }
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @meals }
@@ -51,9 +58,7 @@ class MealsController < ApplicationController
   # POST /meals
   # POST /meals.json
   def create
-
-   puts("paramTest")
-   puts((params[:meal][:location]).class)
+   
     if((params[:meal][:location]).to_s.numeric?)
       bId=params[:meal][:location]
     else
@@ -63,20 +68,32 @@ class MealsController < ApplicationController
     @meal.location=bId
     @meal.host=current_user.id
     respond_to do |format|
-      if @meal.save
-		  @group_meal = GroupMeal.new
-		  @group_meal.meal=@meal.id
-		  @group_meal.proposed_start_time= @meal.start_time
-		  @group_meal.proposed_end_time= @meal.end_time
-		  @group_meal.set_start_time= nil
-		  @group_meal.set_start_time= nil
-		  @group_meal.save
-		  @groupMealParticipant= GroupMealsParticipant.new
-          @groupMealParticipant.user_id=current_user.id
-          @groupMealParticipant.group_meal_id= @group_meal.id
-          @groupMealParticipant.save    
-        format.html { redirect_to :controller => 'group_meals', :action => 'show', :id => @group_meal.id, notice: 'Meal was successfully created.' }
-        format.json { render json: @meal, status: :created, location: @meal }
+    if @meal.save
+      puts(params)
+      puts("testing private")
+      if (params[:private] !=[""])
+		  @priArray= (params[:private])
+		  @priArray.each do |p|
+			  @private= Private.new
+			  @private.meal_id=@meal.id
+			  @private.user_id= User.find_by_name(p).id
+			  @private.save
+		  end
+	  end
+	  
+	  @group_meal = GroupMeal.new
+	  @group_meal.meal=@meal.id
+	  @group_meal.proposed_start_time= @meal.start_time
+	  @group_meal.proposed_end_time= @meal.end_time
+	  @group_meal.set_start_time= nil
+	  @group_meal.set_start_time= nil
+	  @group_meal.save
+	  @groupMealParticipant= GroupMealsParticipant.new
+	  @groupMealParticipant.user_id=current_user.id
+	  @groupMealParticipant.group_meal_id= @group_meal.id
+	  @groupMealParticipant.save    
+      format.html { redirect_to :controller => 'group_meals', :action => 'show', :id => @group_meal.id, notice: 'Meal was successfully created.' }
+      format.json { render json: @meal, status: :created, location: @meal }
       else
         format.html { render action: "new" }
         format.json { render json: @meal.errors, status: :unprocessable_entity }

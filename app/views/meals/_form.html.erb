@@ -1,4 +1,18 @@
-<%= simple_form_for @meal, :html => { :class =>"custom"} do |f| %>
+<script>
+	function showDiv(chosen){
+	  if(chosen == "Private")
+	    document.getElementById("privacy").style.display = "block"
+	  else
+	  	document.getElementById("privacy").style.display = "none"
+	}
+	
+	function addPerson() {
+	  $("#privacy").append(' <%= text_field "private","" %>');
+	}
+	
+</script>
+
+<%= simple_form_for @meal, :html => { :class =>"custom", :id=> "myForm"} do |f| %>
   <% if @meal.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@meal.errors.count, "error") %> prohibited this meal from being saved:</h2>
@@ -31,7 +45,12 @@
   </div>
   <div class="field" style="width:30%">
     <b>Privacy Level <b><br />
-    <%= f.select :privacy_level, options_for_select([["Public", "public"], ["Private", "Private"]]) %>
+    <%= f.select :privacy_level, options_for_select([["Public", "public"], ["Private", "private"]]), {} , :onchange => 'showDiv(this.options[this.selectedIndex].innerHTML)' %>
+  </div>
+  
+  <div id="privacy" style="display:none" >
+    <h5> Type users who can see this </h5><div onclick="addPerson()" class="tiny button">Add Field</div>
+  	<%= text_field 'private', "" %>
   </div>
   <div class="actions">
     <%= f.submit 'Create Meal', :class =>"button" %>
