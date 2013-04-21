@@ -6,7 +6,7 @@
 			<img src= "<%= Business.find_by_id(Meal.find(@group_meal.meal).location).photo_url %>" >
 			<h5>Host: <em style="display:block"><%= User.find(Meal.find(@group_meal.meal).host).name %></em></h5>
 			<h5>Participants:</h5>
-				<% GroupMealParticipant.find_all_by_group_meal_id(@group_meal.id).each do |g| %>
+				<% GroupMealsParticipant.find_all_by_group_meal_id(@group_meal.id).each do |g| %>
 				  <em style="display:inline"><%= User.find(g.user_id).name %></em>	
 				<% end %>
 		</div>
@@ -79,6 +79,24 @@
 				<% end %>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="panel">
+  <h3>Message Board</h3>
+  <div id="messages" style="background-color:white;height:200px;overflow:scroll" >
+	  <% Message.order('created_at ASC').find_all_by_group_meal_id(@group_meal.id).each do |m| %>
+		<%= User.find(m.author).name %> (<%= m.created_at.strftime("%m/%d at %I:%M%p") %>): <%= m.text %> <br />
+	  <% end %>  
+  </div>
+  <div class="row">
+  	  <%= form_tag(:controller => "group_meals", :action => "newMessage", :method => "post", :group_meal_id => @group_meal.id) do  %>
+  	    <div class="large-9 columns">
+	      <%= text_area_tag :text %>
+	    </div>
+	    <div class="large-3 columns">
+	      <%= submit_tag "Send Message" , :class => "button" %>
+	    </div>
+	  <% end %>
 	</div>
 </div>
 <%= button_to 'Back', meals_path, :method => 'get', :class =>"button" %>

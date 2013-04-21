@@ -9,7 +9,7 @@
 			<img src= "<%= Business.find_by_id(Meal.find(gm.meal).location).photo_url %>" >
 			<h5>Host: <em style="display:block"><%= User.find(Meal.find(gm.meal).host).name %></em></h5>
 			<h5>Participants:</h5>
-				<% GroupMealParticipant.find_all_by_group_meal_id(gm.id).each do |g| %>
+				<% GroupMealsParticipant.find_all_by_group_meal_id(gm.id).each do |g| %>
 				  <em style="display:inline"><%= User.find(g.user_id).name %></em>	
 				<% end %>
 		</div>

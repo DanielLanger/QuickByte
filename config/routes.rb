@@ -15,7 +15,7 @@ QuickByte::Application.routes.draw do
   match '/group_meals/joinGroup', :controller => 'group_meals', :action => 'joinGroup'
   match '/meals/eatHere', :controller => 'meals', :action => 'eatHere'
   match '/businesses/autoComp', :controller => 'businesses', :action => 'autoComp'
-
+  match '/group_meals/newMessage', :controller => 'group_meals', :action => 'newMessage'
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'

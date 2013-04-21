@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130421174118) do
+ActiveRecord::Schema.define(:version => 20130421183811) do
 
   create_table "businesses", :force => true do |t|
     t.string   "business_id"
@@ -50,13 +50,6 @@ ActiveRecord::Schema.define(:version => 20130421174118) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "group_meal_participants", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "group_meal_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
   create_table "group_meals", :force => true do |t|
     t.integer  "meal"
     t.datetime "proposed_start_time"
@@ -67,6 +60,13 @@ ActiveRecord::Schema.define(:version => 20130421174118) do
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "group_meals_participants", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "group_meal_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "meals", :force => true do |t|
     t.integer  "host"
     t.datetime "start_time"
@@ -75,6 +75,14 @@ ActiveRecord::Schema.define(:version => 20130421174118) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "privacy_level"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "author"
+    t.text     "text"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "group_meal_id"
   end
 
   create_table "reviews", :force => true do |t|

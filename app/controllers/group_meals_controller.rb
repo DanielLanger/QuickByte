@@ -10,6 +10,17 @@ class GroupMealsController < ApplicationController
     end
   end
 
+  def newMessage
+    puts("inmessage")
+    puts(params)
+    @message =Message.new
+    @message.author=current_user.id
+    @message.text=params[:text]
+    @message.group_meal_id= params[:group_meal_id]
+    @message.save
+    redirect_to group_meal_path(GroupMeal.find(params[:group_meal_id]).id)
+  end
+
   # GET /group_meals/1
   # GET /group_meals/1.json
   def show
@@ -22,7 +33,7 @@ class GroupMealsController < ApplicationController
   end
 
   def getUserGroups
-  	@group_meals=GroupMealParticipant.find_all_by_user_id(current_user.id)
+  	@group_meals=GroupMealsParticipant.find_all_by_user_id(current_user.id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @group_meal }
