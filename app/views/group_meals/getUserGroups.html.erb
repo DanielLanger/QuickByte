@@ -1,8 +1,13 @@
-
 <%= button_to 'Back', meals_path, :method => 'get', :class =>"button" %>
+<% if @group_meals == nil %>
+  <h1> You Are Not A Part Of Any Group Meals Yet! </h1>
+<% end %>
 <% @group_meals.each do |group_meal| %>
   <% gm=GroupMeal.find(group_meal.group_meal_id) %>
   <div style="font-size:40px;font-style:italic;display:inline"><%= Business.find(Meal.find(gm.meal).location).name %></div>
+    <% if current_user.id == Meal.find(gm.meal).host %>
+	  <span class="round alert label">Hosting!</span>
+	<% end %>
   <div class="panel" >
 	<div class="row">
 		<div class="large-3 columns">
@@ -10,7 +15,9 @@
 			<h5>Host: <em style="display:block"><%= User.find(Meal.find(gm.meal).host).name %></em></h5>
 			<h5>Participants:</h5>
 				<% GroupMealsParticipant.find_all_by_group_meal_id(gm.id).each do |g| %>
-				  <em style="display:inline"><%= User.find(g.user_id).name %></em>	
+				  <% if g.user_id != Meal.find(gm.meal).host %>
+				    <em style="display:inline"><%= User.find(g.user_id).name %></em>
+				  <% end %>
 				<% end %>
 		</div>
 		<div class="large-9 columns">

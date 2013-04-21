@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 <div style="font-size:40px;font-style:italic;display:inline"><%= Business.find(Meal.find(@group_meal.meal).location).name %></div>
+<% if current_user.id == Meal.find(@group_meal.meal).host %>
+	  <span class="round alert label">Hosting!</span>
+<% end %>
 <div class="panel" >
 	<div class="row">
 		<div class="large-3 columns">
@@ -7,7 +10,9 @@
 			<h5>Host: <em style="display:block"><%= User.find(Meal.find(@group_meal.meal).host).name %></em></h5>
 			<h5>Participants:</h5>
 				<% GroupMealsParticipant.find_all_by_group_meal_id(@group_meal.id).each do |g| %>
-				  <em style="display:inline"><%= User.find(g.user_id).name %></em>	
+				  <% if g.user_id != Meal.find(@group_meal.meal).host %>
+				    <em style="display:inline"><%= User.find(g.user_id).name %></em>	
+				  <% end %>
 				<% end %>
 		</div>
 		<div class="large-9 columns">

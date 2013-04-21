@@ -34,6 +34,7 @@ class GroupMealsController < ApplicationController
 
   def getUserGroups
   	@group_meals=GroupMealsParticipant.find_all_by_user_id(current_user.id)
+  
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @group_meal }
@@ -52,19 +53,12 @@ class GroupMealsController < ApplicationController
       @group_meal.set_start_time= nil
       @group_meal.set_start_time= nil
       @group_meal.save
-      redirect_to(@group_meal)
-    else
-     if(Meal.find(params[:meal]).host!=current_user.id)
-       puts("in if statement")
-       puts(current_user.name)
-       @groupMealParticipant= GroupMealParticipant.new
-       @groupMealParticipant.user_id=current_user.id
-       @groupMealParticipant.group_meal_id= GroupMeal.find_by_meal(params[:meal]).id
-       @groupMealParticipant.save
-     end
-     
-     redirect_to(GroupMeal.find_by_meal(params[:meal]))
-     end
+    end
+      @groupMealParticipant= GroupMealsParticipant.new
+      @groupMealParticipant.user_id=current_user.id
+      @groupMealParticipant.group_meal_id= GroupMeal.find_by_meal(params[:meal]).id
+      @groupMealParticipant.save     
+      redirect_to(GroupMeal.find_by_meal(params[:meal]))
   end
 
   # GET /group_meals/new

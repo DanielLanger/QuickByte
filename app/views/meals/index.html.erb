@@ -17,16 +17,16 @@
 					<td width="30%" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>m.location) %>' "><h5><u><%= Business.find_by_id(m.location).name %><u></h5></td>
 					<td width="20%"><%= m.start_time.strftime("%m/%d at %I:%M%p")%></td>
 					<td width="20%"><%= m.end_time.strftime("%I:%M%p")%></td>
-					<td width="20%"><%= User.find(m.host).name %></td>
+					<td width="20%"><% if current_user.id == m.host %> <span class="round alert label">You!</span> <% else %><%= User.find(m.host).name %> <% end %></td>
 				  </tr>
 				</table>
 			</div>
 			<div class="large-3 columns">
 				<% if GroupMeal.find_by_meal(m.id) != nil  %>
-					<% if m.host !=current_user.id && GroupMealsParticipant.find_by_user_id_and_group_meal_id(current_user.id,GroupMeal.find_by_meal(m.id).id)==nil%>
-						<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
+					<% if (m.host == current_user.id || GroupMealsParticipant.find_by_user_id_and_group_meal_id(current_user.id,GroupMeal.find_by_meal(m.id).id)!=nil)%>
+						<%= link_to 'See Group Meal', group_meal_path(GroupMeal.find_by_meal(m.id)), :class =>"button" %>
 					<% else %>
-							<%= link_to 'See Group Meal', group_meal_path(GroupMeal.find_by_meal(m.id)), :class =>"button" %>
+							<%= button_to 'Join', {:controller => "group_meals", :action => "joinGroup", :meal =>m.id},  :method => "post" , :class =>"button" %>
 					<% end %>
 					
 					<% if GroupMeal.find_by_meal(m.id).set_start_time != nil %>
