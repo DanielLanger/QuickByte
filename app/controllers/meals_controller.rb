@@ -30,11 +30,12 @@ class MealsController < ApplicationController
 	end
 	
 	@x = Hash.new(0)	
-	@businesses.each do |b|
-		@x[b] += 1
+	if @businesses !=nil
+		@businesses.each do |b|
+			@x[b] += 1
+		end
+		@ordered= @x.sort_by { |k,v| v }.reverse
 	end
-	@ordered= @x.sort_by { |k,v| v }.reverse
-
     
     respond_to do |format|
       format.html # index.html.erb

@@ -25,9 +25,7 @@ open(categoryPath) do |categories|
     end
 end
 
-
-=begin
-Review.delete-all
+Review.delete_all
 reviewsPath="#{Rails.root}/public/reviews.json"
 reviews=JSON.parse(File.read(reviewsPath))
 reviews.each do |r|
@@ -41,6 +39,7 @@ businesses.each do |business|
   Business.create!(business)
 end
 
+BusinessesSchools.delete_all
 businessSchoolPath = "#{Rails.root}/public/business_schools.txt"
 open(businessSchoolPath) do |bs|
     bs.read.each_line do |b|
@@ -53,11 +52,12 @@ open(businessSchoolPath) do |bs|
 		if(busFind !=nil && schFind!=nil)
 			bId= busFind.id
 			sId= schFind.id		  	
-			BusinessesSchool.create(:business_id => bId, :school_id => sId)  
+			BusinessesSchools.create(:business_id => bId, :school_id => sId)  
 		end
 	end
 end
 
+BusinessesCategories.delete_all
 businessCategoryPath = "#{Rails.root}/public/business_categories.txt"
 open(businessCategoryPath) do |bc|
     bc.read.each_line do |b|
@@ -70,8 +70,7 @@ open(businessCategoryPath) do |bc|
 		if(busFind !=nil && catFind!=nil)
 			bId= busFind.id
 			cId= catFind.id		  	
-			BusinessesCategory.create(:business_id => bId, :category_id => cId)  
+			BusinessesCategories.create(:business_id => bId, :category_id => cId)  
 		end
 	end
 end
-=end

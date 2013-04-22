@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422054121) do
+ActiveRecord::Schema.define(:version => 20130422180410) do
 
   create_table "businesses", :force => true do |t|
     t.string   "business_id"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20130422054121) do
     t.string   "image"
     t.string   "location"
     t.string   "facebook_url"
+    t.string   "college"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

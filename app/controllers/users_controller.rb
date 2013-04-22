@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.where("name like ?", "%#{params[:q]}%")
+    @users = User.where("name like ? and college=?", "%#{params[:q]}%", current_user.college)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,13 +22,13 @@ class UsersController < ApplicationController
 			@businesses += Business.where("id = ?", Meal.find(GroupMeal.find(f.group_meal_id).meal).location)
 		end
 	end
-	
-	@x = Hash.new(0)	
-	@businesses.each do |b|
-		@x[b] += 1
+	if @businesses !=nil
+		@x = Hash.new(0)	
+		@businesses.each do |b|
+			@x[b] += 1
+		end
+		@ordered= @x.sort_by { |k,v| v }.reverse
 	end
-	@ordered= @x.sort_by { |k,v| v }.reverse
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }

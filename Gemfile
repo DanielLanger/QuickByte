@@ -11,7 +11,7 @@ gem 'omniauth-facebook', '1.4.0'
 gem 'nifty-generators'
 gem 'simple_form'
 gem 'jquery-rails'
-
+gem 'koala'
 group :production do
   gem "pg"
 end

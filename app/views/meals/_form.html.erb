@@ -22,9 +22,9 @@
   <div class="field" style="width:50%"> 
     <b>Location</b>
     <% if @meal.location == nil%>
-        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")} %>
+        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values(query)} %>
     <% else %>
-        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")}, :readonly => "true" %>
+        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values(query)}, :readonly => "true" %>
   	 <% end %>
   </div>
   <div class="field" style="width:25%;float:right;margin-right:30%">

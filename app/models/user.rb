@@ -12,8 +12,18 @@ class User < ActiveRecord::Base
 		user.image=auth.info.image
 		user.location=auth.info.location
 		user.facebook_url=auth.info.urls.Facebook
+		puts("education here")
+		@school=""
+		puts(auth.extra.raw_info)
+		if(auth.extra.raw_info.education !=nil)
+			auth.extra.raw_info.education.each do |e|
+				if e.type="College"
+					@school=e.school.name
+				end
+			end
+			user.college=@school
+		end
 		user.save!
   	end
   end
-
 end
