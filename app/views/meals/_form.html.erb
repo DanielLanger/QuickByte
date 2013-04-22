@@ -1,15 +1,10 @@
-<script>
+<script>	
 	function showDiv(chosen){
 	  if(chosen == "Private")
 	    document.getElementById("privacy").style.display = "block"
 	  else
 	  	document.getElementById("privacy").style.display = "none"
 	}
-	
-	function addPerson() {
-	  $("#privacy").append(' <%= text_field "private","" %>');
-	}
-	
 </script>
 
 <%= simple_form_for @meal, :html => { :class =>"custom", :id=> "myForm"} do |f| %>
@@ -26,11 +21,11 @@
   <% end %>
   <div class="field" style="width:50%"> 
     <b>Location</b>
-      <% if @meal.location == nil%>
+    <% if @meal.location == nil%>
         <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")} %>
-      <% else %>
+    <% else %>
         <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values("SELECT name FROM businesses WHERE city='Philadelphia'")}, :readonly => "true" %>
-  	  <% end %>
+  	 <% end %>
   </div>
   <div class="field" style="width:25%;float:right;margin-right:30%">
     <b>End Time</b><br />
@@ -48,10 +43,10 @@
     <%= f.select :privacy_level, options_for_select([["Public", "public"], ["Private", "private"]]), {} , :onchange => 'showDiv(this.options[this.selectedIndex].innerHTML)' %>
   </div>
   
-  <div id="privacy" style="display:none" >
-    <h5> Type users who can see this </h5><div onclick="addPerson()" class="tiny button">Add Field</div>
-  	<%= text_field 'private', "" %>
-  </div>
+  <div id="privacy" style="display:none"  >
+    <h5> Type users who can see this </h5>
+	<%= text_field_tag 'private', nil %>
+  </div><br /><br />
   <div class="actions">
     <%= f.submit 'Create Meal', :class =>"button" %>
   </div>

@@ -3,7 +3,7 @@ QuickByte::Application.routes.draw do
 
 
   resources :meals
-
+  resources :users
 
   get "home/index"
 

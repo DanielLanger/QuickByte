@@ -4,4 +4,5 @@
 
 jQuery ->
 	$('#meal_location').autocomplete
-	  source: $('#meal_location').data('autocomplete-source')
+	  source: $('#meal_location').data('autocomplete-source');
+	  

@@ -71,12 +71,14 @@ class MealsController < ApplicationController
     if @meal.save
       puts(params)
       puts("testing private")
-      if (params[:private] !=[""])
-		  @priArray= (params[:private])
+      if (params[:private] !=nil)
+		  @priArray= (params[:private]).split(", ")
 		  @priArray.each do |p|
+		  	  puts("p here!")
+		  	  puts(p)
 			  @private= Private.new
 			  @private.meal_id=@meal.id
-			  @private.user_id= User.find_by_name(p).id
+			  @private.user_id= p
 			  @private.save
 		  end
 	  end
