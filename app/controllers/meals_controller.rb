@@ -13,10 +13,10 @@ class MealsController < ApplicationController
     @meals = Meal.where("privacy_level =? AND start_time > ?", "public", DateTime.now).order("start_time")
     @privateMeals= Private.where("user_id = ?" ,current_user.id)
     @privateMeals.each do |p|
-    	@hostedM= Meal.where("id= ?", p.meal_id)
+    	@hostedM= Meal.where("id= ?  AND start_time > ?" , p.meal_id, DateTime.now)
     	@meals += @hostedM
     end
-    @meals += Meal.where("host =?", current_user.id)
+    @meals += Meal.where("host =? AND start_time > ?", current_user.id, DateTime.now)
     @meals.sort! { |a,b| a.start_time <=> b.start_time }
     
     @user= current_user
