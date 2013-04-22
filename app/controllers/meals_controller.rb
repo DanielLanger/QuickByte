@@ -13,10 +13,10 @@ class MealsController < ApplicationController
     @meals = Meal.where("privacy_level =? AND start_time > ?", "public", DateTime.now).order("start_time")
     @privateMeals= Private.where("user_id = ?" ,current_user.id)
     @privateMeals.each do |p|
-    	@hostedM= Meal.where("id= ?  AND start_time > ?" , p.meal_id, DateTime.now)
-    	@meals += @hostedM
+    	@priv= Meal.where("id= ?  AND start_time > ?" , p.meal_id, DateTime.now)
+    	@meals += @priv 
     end
-    @meals += Meal.where("host =? AND start_time > ?", current_user.id, DateTime.now)
+
     @meals.sort! { |a,b| a.start_time <=> b.start_time }
     
     @user= current_user
@@ -88,8 +88,6 @@ class MealsController < ApplicationController
     @meal.host=current_user.id
     respond_to do |format|
     if @meal.save
-      puts(params)
-      puts("testing private")
       if (params[:private] !=nil)
 		  @priArray= (params[:private]).split(", ")
 		  @priArray.each do |p|
@@ -100,6 +98,11 @@ class MealsController < ApplicationController
 			  @private.user_id= p
 			  @private.save
 		  end
+		  			  
+		  @private2=Private.new
+		  @private2.meal_id=@meal.id
+		  @private2.user_id= current_user.id
+		  @private2.save
 	  end
 	  
 	  @group_meal = GroupMeal.new

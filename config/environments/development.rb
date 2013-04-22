@@ -36,5 +36,5 @@ QuickByte::Application.configure do
   config.assets.debug = true
   
   config.time_zone = 'Eastern Time (US & Canada)'
-  config.active_record.default_timezone = 'Eastern Time (US & Canada)'
+  config.active_record.default_timezone = :local
 end

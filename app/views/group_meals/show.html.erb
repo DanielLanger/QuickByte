@@ -97,7 +97,7 @@
 </div>
 <div class="panel">
   <h3>Message Board</h3>
-  <div id="messages" style="background-color:white;height:200px;overflow:scroll" >
+  <div id="messages" style="background-color:white;height:160px;overflow:scroll" >
 	  <% Message.order('created_at ASC').find_all_by_group_meal_id(@group_meal.id).each do |m| %>
 		<%= User.find(m.author).name %> (<%= m.created_at.strftime("%m/%d at %I:%M%p") %>): <%= m.text %> <br />
 	  <% end %>  

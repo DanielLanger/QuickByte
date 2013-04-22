@@ -74,13 +74,12 @@
 			<div style="position:fixed;right:45px">
 				<h6> Your Favorites </h6>
 				<table>
-					<% @ordered.each do |k, b| %>
+					<% @ordered.first(5).each do |k, b| %>
 					<tr>
-						<% if b> 1 %>
-							<td onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>k.id) %>'"><u><%= "#{k.name}:" %></u></td>
-							<td><%= "#{b} times" %> </td>
-						<% end %>
+						<td onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>k.id) %>'"><u><%= "#{k.name}:" %></u></td>
+						<td><%= "#{b} times" %> </td>
 					</tr>
+					
 					<% end %>
 				</table>
 			</div>
