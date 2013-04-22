@@ -14,6 +14,20 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+	@part = GroupMealsParticipant.find_all_by_user_id(@user.id)
+	@part.each do |f|
+		if @businesses == nil
+			@businesses = Business.where("id = ?", Meal.find(GroupMeal.find(f.group_meal_id).meal).location)
+		else
+			@businesses += Business.where("id = ?", Meal.find(GroupMeal.find(f.group_meal_id).meal).location)
+		end
+	end
+	
+	@x = Hash.new(0)	
+	@businesses.each do |b|
+		@x[b] += 1
+	end
+	@ordered= @x.sort_by { |k,v| v }.reverse
 
     respond_to do |format|
       format.html # show.html.erb
@@ -41,7 +55,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-
+	
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }

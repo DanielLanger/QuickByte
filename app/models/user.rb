@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
 		user.oauth_token = auth.credentials.token
 		user.oauth_expires_at = Time.at(auth.credentials.expires_at)
 		user.email=auth.info.email
+		user.image=auth.info.image
+		user.location=auth.info.location
+		user.facebook_url=auth.info.urls.Facebook
 		user.save!
   	end
   end

@@ -29,7 +29,15 @@
             <h1><a href="/">QuickByte</a></h1>
           </li>
         </ul>
+        
         <section class="top-bar-section">
+        <ul class="left">
+         <% if current_user %>
+		   <div onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'users', :action => 'show', :id=>current_user.id) %>'"> 
+		    <li class="active"><img src="<%=current_user.image %>" width="40px"></li>
+		    <li class="active"><a href="<%= url_for(:controller => 'users', :action => 'show', :id=>current_user.id) %>"><%= current_user.name %></a></li></div>
+		 <% end %>
+		 </ul>   
 		<ul class="right">	
 		  <% if current_user %>
 		    <li class="active"><%= link_to 'GroupMeals',{:controller => "group_meals", :action => "getUserGroups", :user =>current_user},  :method => "post"   %></li>
@@ -60,6 +68,19 @@
 	  <!-- End Nav -->
 
 	<!-- Main Page Content -->
+	<% if request.env['PATH_INFO'] =="/meals" %>
+		<div style="position:fixed;right:45px">
+			<h6> Your Favorites </h6>
+	  		<table>
+				<% @ordered.each do |k, b| %>
+				<tr>
+					<td onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>k.id) %>'"><u><%= "#{k.name}:" %></u></td>
+					<td><%= "#{b} times" %> </td>
+				</tr>
+				<% end %>
+			</table>
+	  	</div>
+	  <% end %>
 	  <div class="row">
 		<!-- Main Blog Content -->
 		<div class="large-12 columns" role="content">		
@@ -67,7 +88,9 @@
 		</div>
 		<!-- End Main Content -->
 	  </div>
+
   </div>
   <%= javascript_include_tag "application" %>
   </body>
+  
 </html>

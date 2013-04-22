@@ -18,6 +18,24 @@ class MealsController < ApplicationController
     end
     @meals += Meal.where("host =?", current_user.id)
     @meals.sort! { |a,b| a.start_time <=> b.start_time }
+    
+    @user= current_user
+    @part = GroupMealsParticipant.find_all_by_user_id(@user.id)
+	@part.each do |f|
+		if @businesses == nil
+			@businesses = Business.where("id = ?", Meal.find(GroupMeal.find(f.group_meal_id).meal).location)
+		else
+			@businesses += Business.where("id = ?", Meal.find(GroupMeal.find(f.group_meal_id).meal).location)
+		end
+	end
+	
+	@x = Hash.new(0)	
+	@businesses.each do |b|
+		@x[b] += 1
+	end
+	@ordered= @x.sort_by { |k,v| v }.reverse
+
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @meals }
