@@ -7,11 +7,11 @@
 	<div class="row">
 		<div class="large-3 columns">
 			<img src= "<%= Business.find_by_id(Meal.find(@group_meal.meal).location).photo_url %>" >
-			<h5>Host: <em style="display:block"><%= User.find(Meal.find(@group_meal.meal).host).name %></em></h5>
+			<h5>Host: <em style="display:block"><%= link_to User.find(Meal.find(@group_meal.meal).host).name, User.find(Meal.find(@group_meal.meal).host) %></em></h5>
 			<h5>Participants:</h5>
 				<% GroupMealsParticipant.find_all_by_group_meal_id(@group_meal.id).each do |g| %>
 				  <% if g.user_id != Meal.find(@group_meal.meal).host %>
-				    <em style="display:inline"><%= User.find(g.user_id).name %></em>	
+				    <em style="display:inline"><%= link_to User.find(g.user_id).name, User.find(g.user_id) %></em>	
 				  <% end %>
 				<% end %>
 		</div>

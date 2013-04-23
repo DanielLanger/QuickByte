@@ -17,7 +17,7 @@
 					<td width="30%" onmouseover="this.style.cursor='pointer';" onclick="window.location.href = '<%= url_for(:controller => 'businesses', :action => 'show', :id=>m.location) %>' "><h5><u><%= Business.find_by_id(m.location).name %><u></h5></td>
 					<td width="20%"><%= m.start_time.strftime("%m/%d at %I:%M%p")%></td>
 					<td width="20%"><%= m.end_time.strftime("%I:%M%p")%></td>
-					<td width="20%"><% if current_user.id == m.host %> <span class="round alert label">You!</span> <% else %><%= User.find(m.host).name %> <% end %></td>
+					<td width="20%"><% if current_user.id == m.host %> <span class="round alert label">You!</span> <% else %><%= link_to User.find(m.host).name, User.find(m.host)  %> <% end %></td>
 				  </tr>
 				</table>
 			</div>
