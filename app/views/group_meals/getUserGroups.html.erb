@@ -4,51 +4,58 @@
 <% end %>
 <% @group_meals.each do |group_meal| %>
   <% gm=GroupMeal.find(group_meal.group_meal_id) %>
-  <div style="font-size:40px;font-style:italic;display:inline"><%= Business.find(Meal.find(gm.meal).location).name %></div>
-    <% if current_user.id == Meal.find(gm.meal).host %>
-	  <span class="round alert label">Hosting!</span>
-	<% end %>
-  <div class="panel" >
-	<div class="row">
-		<div class="large-3 columns">
-			<img src= "<%= Business.find_by_id(Meal.find(gm.meal).location).photo_url %>" >
-			<h5>Host: <em style="display:block"><%= User.find(Meal.find(gm.meal).host).name %></em></h5>
-			<h5>Participants:</h5>
-				<% GroupMealsParticipant.find_all_by_group_meal_id(gm.id).each do |g| %>
-				  <% if g.user_id != Meal.find(gm.meal).host %>
-				    <em style="display:inline"><%= User.find(g.user_id).name %></em>
-				  <% end %>
+  <% if gm.proposed_start_time > DateTime.now %>
+	  <div style="font-size:40px;font-style:italic;display:inline"><%= Business.find(Meal.find(gm.meal).location).name %></div>
+		<% if current_user.id == Meal.find(gm.meal).host %>
+		  <span class="round alert label">Hosting!</span>
+		<% end %>
+	  <div class="panel" >
+		<div class="row">
+			<div class="large-3 columns">
+				<img src= "<%= Business.find_by_id(Meal.find(gm.meal).location).photo_url %>" >
+				<h5>Host: <em style="display:block"><%= User.find(Meal.find(gm.meal).host).name %></em></h5>
+				<h5>Participants:</h5>
+					<% GroupMealsParticipant.find_all_by_group_meal_id(gm.id).each do |g| %>
+					  <% if g.user_id != Meal.find(gm.meal).host %>
+						<em style="display:inline"><%= User.find(g.user_id).name %></em>
+					  <% end %>
+					<% end %>
+			</div>
+			<div class="large-8 columns">
+				<table>
+				  <tr>
+					<th>Proposed start time</th>
+					<td> <%= gm.proposed_start_time.strftime("%m/%d at %I:%M%p") %></td>
+				  </tr>
+				  <tr>
+					<th>Proposed end time</th>
+					<td><%= gm.proposed_end_time.strftime("%m/%d at %I:%M%p") %></td>
+				  </tr>
+				  <tr>
+					<th>Set start time</th>
+					<% if gm.set_start_time. !=nil %>
+						<td><b><%= gm.set_start_time.strftime("%m/%d at %I:%M%p") %></b></td>
+					<% else %>
+						<td>TBD!</td>
+					<% end %>
+				  </tr>
+				  <tr>
+					<th>Set end time</th>
+					<% if gm.set_end_time. !=nil %>
+						<td><b><%= gm.set_end_time.strftime("%m/%d at %I:%M%p") %></b></td>
+					<% else %>
+						<td>TBD!</td>
+					<% end %>
+				  </tr>
+				</table>
+				<%= button_to 'Go To Group Meal', {:controller => "group_meals", :action => "show", :id =>gm.id},  :method => "get" , :class =>"button" %>
+			</div>
+			<div class="large-1 column" >
+				<% if current_user.alert_location== gm.id %>
+					<%= image_tag "notification.gif"  %>
 				<% end %>
+			</div>
 		</div>
-		<div class="large-9 columns">
-			<table>
-			  <tr>
-				<th>Proposed start time</th>
-				<td> <%= gm.proposed_start_time.strftime("%m/%d at %I:%M%p") %></td>
-			  </tr>
-			  <tr>
-			  	<th>Proposed end time</th>
-			  	<td><%= gm.proposed_end_time.strftime("%m/%d at %I:%M%p") %></td>
-			  </tr>
-			  <tr>
-			  	<th>Set start time</th>
-			  	<% if gm.set_start_time. !=nil %>
-			  		<td><b><%= gm.set_start_time.strftime("%m/%d at %I:%M%p") %></b></td>
-			  	<% else %>
-			  		<td>TBD!</td>
-			  	<% end %>
-			  </tr>
-			  <tr>
-			  	<th>Set end time</th>
-			  	<% if gm.set_end_time. !=nil %>
-			  		<td><b><%= gm.set_end_time.strftime("%m/%d at %I:%M%p") %></b></td>
-			  	<% else %>
-			  		<td>TBD!</td>
-			  	<% end %>
-			  </tr>
-			</table>
-			<%= button_to 'Go To Group Meal', {:controller => "group_meals", :action => "show", :id =>gm.id},  :method => "get" , :class =>"button" %>
-		</div>
-	</div>
-</div>
+	  </div>
+	<% end %>
 <% end %>

@@ -40,13 +40,18 @@
 		 </ul>   
 		<ul class="right">	
 		  <% if current_user %>
-		    <li class="active"><%= link_to 'GroupMeals',{:controller => "group_meals", :action => "getUserGroups", :user =>current_user},  :method => "post"   %></li>
+		    <li class="active"><%= link_to 'GroupMeals',{:controller => "group_meals", :action => "getUserGroups", :user =>current_user},  :method => "post"   %>
+		    	
+		    </li> 
+		    <% if current_user.alert %>
+		    	<%= image_tag "notification.gif", :style=>"position:fixed;right:280px" %>
+		    <% end %>
 		    <li class="active"><a href="/meals">MealFeed</a></li>
 			<li class="active"><%= button_to "Sign out", signout_path, id: "sign_out",class:"button" %></li>
 		  <% end %>
 		</ul>
 		<% if current_user %>
-		<ul style="position:absolute;margin-left:22%">
+		<ul style="position:absolute;margin-left:20%">
 			<li class="has-form">
 			<%= form_tag(:controller => "businesses", :action => "autoComp", :method => "post") do %>
 			  <div class="row collapse">

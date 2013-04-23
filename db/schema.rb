@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422180410) do
+ActiveRecord::Schema.define(:version => 20130423012626) do
 
   create_table "businesses", :force => true do |t|
     t.string   "business_id"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20130422180410) do
     t.datetime "set_end_time"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.boolean  "alert"
   end
 
   create_table "group_meals_participants", :force => true do |t|
@@ -132,6 +133,8 @@ ActiveRecord::Schema.define(:version => 20130422180410) do
     t.string   "location"
     t.string   "facebook_url"
     t.string   "college"
+    t.boolean  "alert"
+    t.integer  "alert_location"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

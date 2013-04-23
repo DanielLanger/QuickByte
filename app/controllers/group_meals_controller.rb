@@ -11,13 +11,24 @@ class GroupMealsController < ApplicationController
   end
 
   def newMessage
-    puts("inmessage")
-    puts(params)
+
     @message =Message.new
     @message.author=current_user.id
     @message.text=params[:text]
     @message.group_meal_id= params[:group_meal_id]
     @message.save
+    
+    query = "SELECT user_id FROM group_meals_participants where group_meal_id = " + params[:group_meal_id]
+    
+    GroupMealsParticipant.connection.select_values(query).each do |u|
+    	if(u!=current_user.id)
+    		u=User.find(u)
+    		u.alert=true
+    		u.alert_location=params[:group_meal_id]
+    		u.save
+    	end
+    end
+    
     redirect_to group_meal_path(GroupMeal.find(params[:group_meal_id]).id)
   end
 
@@ -25,7 +36,14 @@ class GroupMealsController < ApplicationController
   # GET /group_meals/1.json
   def show
     @group_meal = GroupMeal.find(params[:id])
-
+    if(current_user.alert==true)
+   		current_user.alert=false
+		current_user.save
+	end
+	if(current_user.alert_location= @group_meal.id)
+		current_user.alert_location=nil
+		current_user.save
+	end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @group_meal }
@@ -34,7 +52,10 @@ class GroupMealsController < ApplicationController
 
   def getUserGroups
   	@group_meals=GroupMealsParticipant.find_all_by_user_id(current_user.id)
-  
+  	if(current_user.alert)
+  		current_user.alert=false
+  		current_user.save
+  	end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @group_meal }
@@ -116,6 +137,19 @@ class GroupMealsController < ApplicationController
                         params[:group_meal]["set_end_time(5i)"].to_i)
         	@meal.save
         end
+        
+        query = "SELECT user_id FROM group_meals_participants where group_meal_id = " + @group_meal.id.to_s
+    
+    	GroupMealsParticipant.connection.select_values(query).each do |u|
+    	if(u!=current_user.id)
+    		u=User.find(u)
+    		u.alert=true
+    		u.alert_location=@group_meal.id
+    		u.save
+    	end
+    end
+        
+        
         format.html { redirect_to @group_meal, notice: 'Group meal was successfully updated.' }
         format.json { head :no_content }
       else
