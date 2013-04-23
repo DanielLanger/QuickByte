@@ -26,7 +26,7 @@ open(categoryPath) do |categories|
 end
 
 Review.delete_all
-reviewsPath="#{Rails.root}/public/reviews.json"
+reviewsPath="#{Rails.root}/public/reviews2.json"
 reviews=JSON.parse(File.read(reviewsPath))
 reviews.each do |r|
 	Review.create!(r)

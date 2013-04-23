@@ -1,1 +1,31 @@
-Coming Soon!
+Welcome to QuickByte!
+
+QuickByte is an app that allows you to find people to eat meals with in your Facebook 
+network!
+
+How it works:
+
+QuickByte uses Facebook authentification to make sign up quick and secure. Using a gem 
+called Omniauth, we pull the user's college network from Facebook.
+This way, the user now belongs to a network in QuickByte, so he can see other users' 
+meals in said network.
+
+After a user logs in, he sees a MealFeed of all the public meals (and private ones that
+he has permission to see) in his network. This includes the location, the start and 
+end time, and the host. If this meal sounds appealing, he can press "Join" and will be
+brought to a Group Meal Page. Here, he can propose a new time, write to the other users
+in the group on the message board, and view user pages.
+
+If a user wants to create his own meal, he can simply press 'New Meal' on the homepage. 
+Alternatively, users can search for local businesses on the top nav-bar which has
+autocomplete functionality. This will bring the user to that business's page,
+where he can start a new meal from as well.
+
+Creating a new meal is easy. Simply pick the location (if you didn't start the meal from
+a business page), choose a start and end time, and decide if you want it to be public
+or private.
+
+And that's it! You are now ready to start using QuickByte so you never have to eat 
+alone again!
+
+ 

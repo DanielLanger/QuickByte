@@ -10,6 +10,7 @@ class GroupMealsController < ApplicationController
     end
   end
 
+  #Creates a new message for the group_meal and alerts all members
   def newMessage
 
     @message =Message.new
@@ -50,6 +51,7 @@ class GroupMealsController < ApplicationController
     end
   end
 
+  #Gets group meals for current User
   def getUserGroups
   	@group_meals=GroupMealsParticipant.find_all_by_user_id(current_user.id)
   	if(current_user.alert)
@@ -62,6 +64,7 @@ class GroupMealsController < ApplicationController
     end
   end
 
+  #Joins user to selected group meal
   def joinGroup
   	query = "SELECT user_id FROM group_meals_participants where group_meal_id = " + GroupMeal.find_by_meal(params[:meal]).id.to_s
     
@@ -114,6 +117,7 @@ class GroupMealsController < ApplicationController
 
   # PUT /group_meals/1
   # PUT /group_meals/1.json
+  # Updates proposed or set time and alerts users
   def update
     @group_meal = GroupMeal.find(params[:id])
 

@@ -8,6 +8,7 @@ class MealsController < ApplicationController
   
   # GET /meals
   # GET /meals.json
+  # Returns viewable meals to user that are > DateTime
   def index
 
     @meals = Meal.where("privacy_level =? AND start_time > ?", "public", DateTime.now).order("start_time")
@@ -47,6 +48,7 @@ class MealsController < ApplicationController
     end
   end
   
+  #Starts New Meal
   def eatHere
   	@meal= Meal.new
 	@meal.location=(params[:business])
@@ -80,6 +82,7 @@ class MealsController < ApplicationController
   
   # POST /meals
   # POST /meals.json
+  # Creates New Meal and group_meal
   def create
    
     if((params[:meal][:location]).to_s.numeric?)
@@ -95,8 +98,7 @@ class MealsController < ApplicationController
       if (params[:private] !=nil)
 		  @priArray= (params[:private]).split(", ")
 		  @priArray.each do |p|
-		  	  puts("p here!")
-		  	  puts(p)
+
 			  @private= Private.new
 			  @private.meal_id=@meal.id
 			  @private.user_id= p

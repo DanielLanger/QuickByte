@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423012626) do
+ActiveRecord::Schema.define(:version => 20130423171508) do
 
   create_table "businesses", :force => true do |t|
     t.string   "business_id"
@@ -97,11 +97,11 @@ ActiveRecord::Schema.define(:version => 20130423012626) do
     t.string   "review_id"
     t.integer  "stars"
     t.string   "date"
-    t.text     "text"
+    t.text     "text",        :limit => 16777215
     t.string   "business_id"
     t.string   "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "schools", :force => true do |t|

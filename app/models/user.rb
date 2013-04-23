@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :group_meals
   attr_accessible :college
   
+  # Pulls info from facebook and updates user attributes
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
 		user.provider = auth.provider
@@ -16,12 +17,17 @@ class User < ActiveRecord::Base
 		puts("education here")
 		@school=""
 		puts(auth.extra.raw_info)
+		puts(auth.info)
+		puts(auth.extra)
 		if(auth.extra.raw_info.education !=nil)
 			auth.extra.raw_info.education.each do |e|
 				if e.type="College"
 					@school=e.school.name
 				end
 			end
+			user.college=@school
+		else
+			@school="University of Pennsylvania"
 			user.college=@school
 		end
 		user.save!

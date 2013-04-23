@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  # Only returns users in network
   def index
     @users = User.where("name like ? and college=?", "%#{params[:q]}%", current_user.college)
 
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
+  # Returns user with favorites
   def show
     @user = User.find(params[:id])
 	@part = GroupMealsParticipant.find_all_by_user_id(@user.id)

@@ -22,8 +22,6 @@ class MessagesController < ApplicationController
   end
   
   def newMessage
-    puts("inmessage")
-    puts(params)
     @message =Message.new
     @message.author=current_user.id
     @message.text=params[:text]
