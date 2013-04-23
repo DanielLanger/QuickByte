@@ -28,4 +28,27 @@ or private.
 And that's it! You are now ready to start using QuickByte so you never have to eat 
 alone again!
 
- 
+Overview of Files:
+
+Rails is an MVC (Model View Controller) framework, where files are either a model -- 
+basically an object and its attributes, a view -- a frontend page that displays data, 
+or a controller -- a logic page that computes queries and decides what data to show etc.
+
+Most of the work is done in the controllers and views. Let us first look at the controllers
+The first large controller is the users_controller and the users model. This controller 
+and model handles creating new users through facebook integration and ensures that 
+users can only view other users in their network.
+The next large controller is the meals controller. This controller handles showing the 
+appropriate meals on the user's MealFeed based on privacy settings, and creating new meals
+when a user fills out the new meal form. It also produces the logic for favorites!
+The largest of the controllers in the group_meal controllers. It handles creating new group
+meals, creating messages for group_meals, joining group meals, updating times for group meals,
+and creating notifications for users when a group_meal is changed.
+
+The views for these controllers handles displaying this information in a nice format. Using
+a plugin called Foundation Zurb, styling this application as a whole was very straightforward.
+It generates CSS based on div classes and makes the app look nice!
+
+The schema for this app can be found in app/db/schema.rb
+
+

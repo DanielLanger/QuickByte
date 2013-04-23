@@ -5,6 +5,7 @@
 	  else
 	  	document.getElementById("privacy").style.display = "none"
 	}
+	
 </script>
 
 <%= simple_form_for @meal, :html => { :class =>"custom", :id=> "myForm"} do |f| %>
@@ -22,7 +23,7 @@
   <div class="field" style="width:50%"> 
     <b>Location</b>
     <% if @meal.location == nil%>
-        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values(query)} %>
+        <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values(query)},:placeholder => "Enter A Location", :class => 'code_input' %>
     <% else %>
         <%= f.text_field :location, data: {autocomplete_source: Business.connection.select_values(query)}, :readonly => "true" %>
   	 <% end %>
@@ -48,6 +49,6 @@
 	<%= text_field_tag 'private', nil %>
   </div><br /><br />
   <div class="actions">
-    <%= f.submit 'Create Meal', :class =>"button" %>
+    <%= f.submit 'Create Meal', {:id => 'button_id', :class => 'button'}%>
   </div>
 <% end %>

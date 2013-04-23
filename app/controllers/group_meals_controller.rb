@@ -120,34 +120,66 @@ class GroupMealsController < ApplicationController
   # Updates proposed or set time and alerts users
   def update
     @group_meal = GroupMeal.find(params[:id])
-
     respond_to do |format|
       if @group_meal.update_attributes(params[:group_meal])
          @meal= Meal.find(@group_meal.meal)
-
+         
         if params[:group_meal]["proposed_start_time(2i)"] !=nil
+        	startDay= params[:group_meal]["proposed_start_time(3i)"].to_i
+         	startHour= params[:group_meal]["proposed_start_time(4i)"].to_i + 4
+         	
+         	if startHour > 24
+          	  startHour=startHour % 24
+           	  startDay+=1
+            end
+    	 
+    	 	endDay= params[:group_meal]["proposed_end_time(3i)"].to_i
+         	endHour= params[:group_meal]["proposed_end_time(4i)"].to_i + 4
+         	
+         	if endHour>24
+          	  endHour=@endHour % 24
+              endDay+=1
+         	end
+         	
         	@meal.start_time= DateTime.new(params[:group_meal]["proposed_start_time(1i)"].to_i, 
                         params[:group_meal]["proposed_start_time(2i)"].to_i,
-                        params[:group_meal]["proposed_start_time(3i)"].to_i,
-                        params[:group_meal]["proposed_start_time(4i)"].to_i,
+                        startDay,
+                        startHour,
                         params[:group_meal]["proposed_start_time(5i)"].to_i)
             @meal.end_time= DateTime.new(params[:group_meal]["proposed_end_time(1i)"].to_i, 
                         params[:group_meal]["proposed_end_time(2i)"].to_i,
-                        params[:group_meal]["proposed_end_time(3i)"].to_i,
-                        params[:group_meal]["proposed_end_time(4i)"].to_i,
+                        endDay,
+                        endHour,
                         params[:group_meal]["proposed_end_time(5i)"].to_i)
         	@meal.save
         end
+        
         if params[:group_meal]["set_start_time(2i)"] !=nil
+        
+        	startDay= params[:group_meal]["set_start_time(3i)"].to_i
+         	startHour= params[:group_meal]["set_start_time(4i)"].to_i + 4
+         	
+         	if startHour > 24
+          	  startHour=startHour % 24
+           	  startDay+=1
+            end
+    	 
+    	 	endDay= params[:group_meal]["set_end_time(3i)"].to_i
+         	endHour= params[:group_meal]["set_end_time(4i)"].to_i + 4
+         	
+         	if endHour>24
+          	  endHour=endHour % 24
+              endDay+=1
+         	end
         	@meal.start_time= DateTime.new(params[:group_meal]["set_start_time(1i)"].to_i, 
                         params[:group_meal]["set_start_time(2i)"].to_i,
-                        params[:group_meal]["set_start_time(3i)"].to_i,
-                        params[:group_meal]["set_start_time(4i)"].to_i,
+                        startDay,
+                        startHour,
                         params[:group_meal]["set_start_time(5i)"].to_i)
             @meal.end_time= DateTime.new(params[:group_meal]["set_end_time(1i)"].to_i, 
                         params[:group_meal]["set_end_time(2i)"].to_i,
-                        params[:group_meal]["set_end_time(3i)"].to_i,
-                        params[:group_meal]["set_end_time(4i)"].to_i,
+                        endDay,
+                        endHour,
                         params[:group_meal]["set_end_time(5i)"].to_i)
         	@meal.save
         end

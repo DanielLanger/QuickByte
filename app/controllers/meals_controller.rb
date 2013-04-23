@@ -22,7 +22,9 @@ class MealsController < ApplicationController
 		end
     end
 
-    @meals.sort! { |a,b| a.start_time <=> b.start_time }
+    if(@meals.size >1)
+      @meals.sort! { |a,b| a.start_time <=> b.start_time }
+    end
     
     @user= current_user
     @part = GroupMealsParticipant.find_all_by_user_id(@user.id)
@@ -84,7 +86,7 @@ class MealsController < ApplicationController
   # POST /meals.json
   # Creates New Meal and group_meal
   def create
-   
+  
     if((params[:meal][:location]).to_s.numeric?)
       bId=params[:meal][:location]
     else

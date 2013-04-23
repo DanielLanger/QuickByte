@@ -39,12 +39,9 @@
 	</div>
 	<div class="large-6 columns">
 		<h3><u> Reviews </u>:<%= @business.review_count %></h3>
-			<% Review.order("stars DESC").find_all_by_business_id(@business.business_id).each do |e|%> 
+			<% Review.order("date DESC").find_all_by_business_id(@business.business_id).each do |e|%> 
 				<div class="panel">
-					<p><b><%= e.user_id %>:</b></p>
-					<br />
-					<p><%= e.text %></p>
-					<br />
+					<p><b><%= e.date %></b></p>
 					<p>Stars:
 					<% if e.stars == 1  %> 
 					  <%= image_tag "1star.jpg" %>
@@ -62,6 +59,9 @@
 					  <%= image_tag "5star.jpg" %>  
 					<% end %>
 					 </p>
+					<br />
+					<p><%= e.text %></p>
+					<br />
 				</div>
 			<% end %>
 	</div>
