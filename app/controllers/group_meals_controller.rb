@@ -63,6 +63,16 @@ class GroupMealsController < ApplicationController
   end
 
   def joinGroup
+  	query = "SELECT user_id FROM group_meals_participants where group_meal_id = " + GroupMeal.find_by_meal(params[:meal]).id.to_s
+    
+    GroupMealsParticipant.connection.select_values(query).each do |u|
+    	if(u!=current_user.id)
+    		u=User.find(u)
+    		u.alert=true
+    		u.alert_location=GroupMeal.find_by_meal(params[:meal]).id.to_s
+    		u.save
+    	end
+  	end
       @groupMealParticipant= GroupMealsParticipant.new
       @groupMealParticipant.user_id=current_user.id
       @groupMealParticipant.group_meal_id= GroupMeal.find_by_meal(params[:meal]).id
